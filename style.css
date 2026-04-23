@@ -222,6 +222,9 @@ section[id] { scroll-margin-top: 0px; }
    HEADER / NAV
 ═══════════════════════════════════════════════════ */
 .header {
+  background: rgba(14, 14, 14, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   position: fixed;
   top: 0;
   left: 0;
@@ -512,7 +515,10 @@ section[id] { scroll-margin-top: 0px; }
 ═══════════════════════════════════════════════════ */
 .section { padding: var(--space-2xl) 0; }
 
-.section__header {
+.section_.header {
+  background: rgba(14, 14, 14, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   text-align: center;
   max-width: 680px;
   margin: 0 auto var(--space-xl);
