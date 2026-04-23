@@ -261,142 +261,136 @@
           <p>Remplissez ce formulaire et nous vous répondons dans les 24 heures.</p>
 
           <!-- Le formulaire -->
-          <form id="formulaire-contact" novalidate>
+          <form action="https://formspree.io/f/xjgjjawe" method="POST" id="formulaire-contact">
 
-            <!-- Nom + Prénom -->
-            <div class="champs-2col">
-              <div class="champ-groupe">
-                <label class="champ-label" for="prenom">Prénom</label>
-                <input
-                  type="text"
-                  id="prenom"
-                  name="prenom"
-                  class="champ-input"
-                  placeholder="Jean"
-                  required
-                  autocomplete="given-name" />
-                <span class="msg-erreur" id="erreur-prenom">Ce champ est requis.</span>
+              <!-- Nom + Prénom -->
+              <div class="champs-2col">
+                  <div class="champ-groupe">
+                      <label class="champ-label" for="prenom">Prénom</label>
+                      <input type="text"
+                             id="prenom"
+                             name="prenom"
+                             class="champ-input"
+                             placeholder="Jean"
+                             required
+                             autocomplete="given-name" />
+                      <span class="msg-erreur" id="erreur-prenom">Ce champ est requis.</span>
+                  </div>
+                  <div class="champ-groupe">
+                      <label class="champ-label" for="nom">Nom</label>
+                      <input type="text"
+                             id="nom"
+                             name="nom"
+                             class="champ-input"
+                             placeholder="Dupont"
+                             required
+                             autocomplete="family-name" />
+                      <span class="msg-erreur" id="erreur-nom">Ce champ est requis.</span>
+                  </div>
               </div>
-              <div class="champ-groupe">
-                <label class="champ-label" for="nom">Nom</label>
-                <input
-                  type="text"
-                  id="nom"
-                  name="nom"
-                  class="champ-input"
-                  placeholder="Dupont"
-                  required
-                  autocomplete="family-name" />
-                <span class="msg-erreur" id="erreur-nom">Ce champ est requis.</span>
+
+              <!-- Email + Téléphone -->
+              <div class="champs-2col">
+                  <div class="champ-groupe">
+                      <label class="champ-label" for="email">Adresse email</label>
+                      <input type="email"
+                             id="email"
+                             name="email"
+                             class="champ-input"
+                             placeholder="jean@exemple.com"
+                             required
+                             autocomplete="email" />
+                      <span class="msg-erreur" id="erreur-email">Adresse email invalide.</span>
+                  </div>
+                  <div class="champ-groupe">
+                      <label class="champ-label" for="telephone">Téléphone (optionnel)</label>
+                      <input type="tel"
+                             id="telephone"
+                             name="telephone"
+                             class="champ-input"
+                             placeholder="+1 (506) 000-0000"
+                             autocomplete="tel" />
+                  </div>
               </div>
-            </div>
 
-            <!-- Email + Téléphone -->
-            <div class="champs-2col">
+              <!-- Entreprise -->
               <div class="champ-groupe">
-                <label class="champ-label" for="email">Adresse email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="champ-input"
-                  placeholder="jean@exemple.com"
-                  required
-                  autocomplete="email" />
-                <span class="msg-erreur" id="erreur-email">Adresse email invalide.</span>
+                  <label class="champ-label" for="entreprise">Nom de l'entreprise (optionnel)</label>
+                  <input type="text"
+                         id="entreprise"
+                         name="entreprise"
+                         class="champ-input"
+                         placeholder="Mon Entreprise Inc."
+                         autocomplete="organization" />
               </div>
+
+              <!-- Service souhaité -->
               <div class="champ-groupe">
-                <label class="champ-label" for="telephone">Téléphone (optionnel)</label>
-                <input
-                  type="tel"
-                  id="telephone"
-                  name="telephone"
-                  class="champ-input"
-                  placeholder="+1 (506) 000-0000"
-                  autocomplete="tel" />
+                  <label class="champ-label" for="service">Service souhaité</label>
+                  <select id="service" name="service" class="champ-select" required>
+                      <option value="" disabled selected>Choisissez un service…</option>
+                      <optgroup label="Présence Digitale">
+                          <option value="site-vitrine">Site Vitrine</option>
+                          <option value="ecommerce">E-Commerce</option>
+                          <option value="identite">Identité Visuelle</option>
+                      </optgroup>
+                      <optgroup label="Marketing & Croissance">
+                          <option value="seo">SEO Local</option>
+                          <option value="reseaux">Gestion Réseaux Sociaux</option>
+                          <option value="pub">Publicité Payante</option>
+                          <option value="video">Montage Vidéo</option>
+                          <option value="email">Email Marketing</option>
+                          <option value="etude">Étude de Marché</option>
+                      </optgroup>
+                      <optgroup label="Tech & Logiciels">
+                          <option value="stocks">Logiciel Gestion Stocks</option>
+                          <option value="rh">RH & Planification</option>
+                          <option value="app">App Web Sur Mesure</option>
+                      </optgroup>
+                      <optgroup label="Agents IA">
+                          <option value="receptionniste">Agent Réceptionniste</option>
+                          <option value="commandes">Agent Prise de Commandes</option>
+                          <option value="support">Agent Support Client</option>
+                          <option value="recrutement">Agent Recrutement</option>
+                      </optgroup>
+                      <optgroup label="Forfaits">
+                          <option value="pack-lancement">Pack Lancement ($2 500)</option>
+                          <option value="pack-croissance">Pack Croissance 360° ($6 500)</option>
+                      </optgroup>
+                      <option value="autre">Autre / Je ne sais pas encore</option>
+                  </select>
+                  <span class="msg-erreur" id="erreur-service">Veuillez choisir un service.</span>
               </div>
-            </div>
 
-            <!-- Entreprise -->
-            <div class="champ-groupe">
-              <label class="champ-label" for="entreprise">Nom de l'entreprise (optionnel)</label>
-              <input
-                type="text"
-                id="entreprise"
-                name="entreprise"
-                class="champ-input"
-                placeholder="Mon Entreprise Inc."
-                autocomplete="organization" />
-            </div>
+              <!-- Budget -->
+              <div class="champ-groupe">
+                  <label class="champ-label" for="budget">Budget envisagé</label>
+                  <select id="budget" name="budget" class="champ-select">
+                      <option value="" disabled selected>Sélectionnez une fourchette…</option>
+                      <option value="moins-1000">Moins de $1 000</option>
+                      <option value="1000-3000">$1 000 – $3 000</option>
+                      <option value="3000-6000">$3 000 – $6 000</option>
+                      <option value="6000-10000">$6 000 – $10 000</option>
+                      <option value="plus-10000">Plus de $10 000</option>
+                      <option value="je-ne-sais-pas">Je ne sais pas encore</option>
+                  </select>
+              </div>
 
-            <!-- Service souhaité -->
-            <div class="champ-groupe">
-              <label class="champ-label" for="service">Service souhaité</label>
-              <select id="service" name="service" class="champ-select" required>
-                <option value="" disabled selected>Choisissez un service…</option>
-                <optgroup label="Présence Digitale">
-                  <option value="site-vitrine">Site Vitrine</option>
-                  <option value="ecommerce">E-Commerce</option>
-                  <option value="identite">Identité Visuelle</option>
-                </optgroup>
-                <optgroup label="Marketing & Croissance">
-                  <option value="seo">SEO Local</option>
-                  <option value="reseaux">Gestion Réseaux Sociaux</option>
-                  <option value="pub">Publicité Payante</option>
-                  <option value="video">Montage Vidéo</option>
-                  <option value="email">Email Marketing</option>
-                  <option value="etude">Étude de Marché</option>
-                </optgroup>
-                <optgroup label="Tech & Logiciels">
-                  <option value="stocks">Logiciel Gestion Stocks</option>
-                  <option value="rh">RH & Planification</option>
-                  <option value="app">App Web Sur Mesure</option>
-                </optgroup>
-                <optgroup label="Agents IA">
-                  <option value="receptionniste">Agent Réceptionniste</option>
-                  <option value="commandes">Agent Prise de Commandes</option>
-                  <option value="support">Agent Support Client</option>
-                  <option value="recrutement">Agent Recrutement</option>
-                </optgroup>
-                <optgroup label="Forfaits">
-                  <option value="pack-lancement">Pack Lancement ($2 500)</option>
-                  <option value="pack-croissance">Pack Croissance 360° ($6 500)</option>
-                </optgroup>
-                <option value="autre">Autre / Je ne sais pas encore</option>
-              </select>
-              <span class="msg-erreur" id="erreur-service">Veuillez choisir un service.</span>
-            </div>
+              <!-- Message -->
+              <div class="champ-groupe">
+                  <label class="champ-label" for="message">Décrivez votre projet</label>
+                  <textarea id="message"
+                            name="message"
+                            class="champ-textarea"
+                            placeholder="Parlez-nous de votre entreprise, de vos objectifs et de ce que vous cherchez à accomplir…"
+                            required></textarea>
+                  <span class="msg-erreur" id="erreur-message">Veuillez décrire votre projet.</span>
+              </div>
 
-            <!-- Budget -->
-            <div class="champ-groupe">
-              <label class="champ-label" for="budget">Budget envisagé</label>
-              <select id="budget" name="budget" class="champ-select">
-                <option value="" disabled selected>Sélectionnez une fourchette…</option>
-                <option value="moins-1000">Moins de $1 000</option>
-                <option value="1000-3000">$1 000 – $3 000</option>
-                <option value="3000-6000">$3 000 – $6 000</option>
-                <option value="6000-10000">$6 000 – $10 000</option>
-                <option value="plus-10000">Plus de $10 000</option>
-                <option value="je-ne-sais-pas">Je ne sais pas encore</option>
-              </select>
-            </div>
-
-            <!-- Message -->
-            <div class="champ-groupe">
-              <label class="champ-label" for="message">Décrivez votre projet</label>
-              <textarea
-                id="message"
-                name="message"
-                class="champ-textarea"
-                placeholder="Parlez-nous de votre entreprise, de vos objectifs et de ce que vous cherchez à accomplir…"
-                required></textarea>
-              <span class="msg-erreur" id="erreur-message">Veuillez décrire votre projet.</span>
-            </div>
-
-            <!-- Bouton submit -->
-            <button type="submit" class="btn btn-primaire btn-submit">
-              Envoyer ma demande <span class="fleche">→</span>
-            </button>
+              <!-- Bouton submit -->
+              <button type="submit" class="btn btn-primaire btn-submit">
+                  Envoyer ma demande <span class="fleche">→</span>
+              </button>
 
           </form>
 
