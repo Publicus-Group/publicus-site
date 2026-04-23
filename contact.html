@@ -261,7 +261,19 @@
           <p>Remplissez ce formulaire et nous vous répondons dans les 24 heures.</p>
 
           <!-- Le formulaire -->
-          <form action="https://formspree.io/f/xjgjjawe" method="POST" id="formulaire-contact">
+          <form action="https://api.web3forms.com/submit" method="POST" id="formulaire-contact">
+
+              <input type="hidden" name="access_key" value="c2e08d0e-1142-44b0-81aa-ddd85755ebf6">
+
+              <div class="champs-2col">
+                  <div class="champ-groupe">
+                      <label class="champ-label" for="prenom">Prénom</label>
+                      <input type="text" id="prenom" name="prenom" class="champ-input" required>
+                  </div>
+              </div>
+
+              <input type="hidden" name="redirect" value="https://mikailoucedrictoure.github.io/publicus-site/merci.html">
+          </form>
 
               <!--- Nom + Prénom --->
               <div class="champs-2col">
