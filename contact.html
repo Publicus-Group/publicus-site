@@ -200,550 +200,560 @@
 
 <body>
 
-  <!-- NAVIGATION -->
-  <nav class="navbar" role="navigation" aria-label="Navigation principale">
-    <div class="nav-interieur">
-      <a href="index.html" class="nav-logo" aria-label="Publicus Group — Retour à l'accueil">
-        <img src="assets/logo.png" alt="Publicus Group Logo" width="44" height="44" />
-        <span class="nav-logo-texte">PUBLICUS <span>GROUP</span></span>
-      </a>
-      <ul class="nav-liens" role="list">
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="a-propos.html">À Propos</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <a href="contact.html" class="btn-nav">Un appel suffit →</a>
-      <button class="burger"
-              aria-label="Ouvrir le menu de navigation"
-              aria-expanded="false"
-              aria-controls="menu-mobile">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <div class="menu-mobile" id="menu-mobile" role="dialog" aria-label="Menu de navigation mobile">
-    <a href="index.html">Accueil</a>
-    <a href="services.html">Services</a>
-    <a href="a-propos.html">À Propos</a>
-    <a href="contact.html">Contact</a>
-    <a href="contact.html" class="btn-nav" style="margin-top:8px;">Un appel suffit →</a>
-    <div class="menu-mobile-contact"><p>+1 (581) 688-3346</p></div>
-  </div>
-
-
-  <!-- HERO PAGE -->
-  <section class="hero-interieur-page" aria-label="Titre de la page Contact">
-    <div class="container">
-      <div class="revele">
-        <span class="badge">Réponse sous 24h garantie</span>
-      </div>
-      <h1 class="revele delai-1">
-        Parlons de votre <em>Projet</em>
-      </h1>
-      <p class="sous-titre revele delai-2">
-        Un appel de 30 minutes suffit pour identifier la meilleure stratégie
-        digitale pour votre entreprise. Aucun engagement, tout le potentiel.
-      </p>
-    </div>
-  </section>
-
-
-  <!-- SECTION CONTACT PRINCIPALE -->
-  <section aria-label="Formulaire de contact et coordonnées">
-    <div class="container">
-      <div class="contact-grille">
-
-        <!-- FORMULAIRE -->
-        <div class="carte-formulaire revele-gauche">
-          <h2>Envoyez-nous un message</h2>
-          <p>Remplissez ce formulaire et nous vous répondons dans les 24 heures.</p>
-
-          <!-- Le formulaire -->
-          <form action="https://api.web3forms.com/submit" method="POST" id="formulaire-contact">
-
-              <input type="hidden" name="access_key" value="c2e08d0e-1142-44b0-81aa-ddd85755ebf6">
-
-              <div class="champs-2col">
-                  <div class="champ-groupe">
-                      <label class="champ-label" for="prenom">Prénom</label>
-                      <input type="text" id="prenom" name="prenom" class="champ-input" required>
-                  </div>
-              </div>
-
-              <input type="hidden" name="redirect" value="https://mikailoucedrictoure.github.io/publicus-site/merci.html">
-          </form>
-
-              <!--- Nom + Prénom --->
-              <div class="champs-2col">
-                  <div class="champ-groupe">
-                      <label class="champ-label" for="prenom">Prénom</label>
-                      <input type="text"
-                             id="prenom"
-                             name="prenom"
-                             class="champ-input"
-                             placeholder="Jean"
-                             required
-                             autocomplete="given-name" />
-                      <span class="msg-erreur" id="erreur-prenom">Ce champ est requis.</span>
-                  </div>
-                  <div class="champ-groupe">
-                      <label class="champ-label" for="nom">Nom</label>
-                      <input type="text"
-                             id="nom"
-                             name="nom"
-                             class="champ-input"
-                             placeholder="Dupont"
-                             required
-                             autocomplete="family-name" />
-                      <span class="msg-erreur" id="erreur-nom">Ce champ est requis.</span>
-                  </div>
-              </div>
-
-              <!-- Email + Téléphone -->
-              <div class="champs-2col">
-                  <div class="champ-groupe">
-                      <label class="champ-label" for="email">Adresse email</label>
-                      <input type="email"
-                             id="email"
-                             name="email"
-                             class="champ-input"
-                             placeholder="jean@exemple.com"
-                             required
-                             autocomplete="email" />
-                      <span class="msg-erreur" id="erreur-email">Adresse email invalide.</span>
-                  </div>
-                  <div class="champ-groupe">
-                      <label class="champ-label" for="telephone">Téléphone (optionnel)</label>
-                      <input type="tel"
-                             id="telephone"
-                             name="telephone"
-                             class="champ-input"
-                             placeholder="+1 (506) 000-0000"
-                             autocomplete="tel" />
-                  </div>
-              </div>
-
-              <!-- Entreprise -->
-              <div class="champ-groupe">
-                  <label class="champ-label" for="entreprise">Nom de l'entreprise (optionnel)</label>
-                  <input type="text"
-                         id="entreprise"
-                         name="entreprise"
-                         class="champ-input"
-                         placeholder="Mon Entreprise Inc."
-                         autocomplete="organization" />
-              </div>
-
-              <!-- Service souhaité -->
-              <div class="champ-groupe">
-                  <label class="champ-label" for="service">Service souhaité</label>
-                  <select id="service" name="service" class="champ-select" required>
-                      <option value="" disabled selected>Choisissez un service…</option>
-                      <optgroup label="Présence Digitale">
-                          <option value="site-vitrine">Site Vitrine</option>
-                          <option value="ecommerce">E-Commerce</option>
-                          <option value="identite">Identité Visuelle</option>
-                      </optgroup>
-                      <optgroup label="Marketing & Croissance">
-                          <option value="seo">SEO Local</option>
-                          <option value="reseaux">Gestion Réseaux Sociaux</option>
-                          <option value="pub">Publicité Payante</option>
-                          <option value="video">Montage Vidéo</option>
-                          <option value="email">Email Marketing</option>
-                          <option value="etude">Étude de Marché</option>
-                      </optgroup>
-                      <optgroup label="Tech & Logiciels">
-                          <option value="stocks">Logiciel Gestion Stocks</option>
-                          <option value="rh">RH & Planification</option>
-                          <option value="app">App Web Sur Mesure</option>
-                      </optgroup>
-                      <optgroup label="Agents IA">
-                          <option value="receptionniste">Agent Réceptionniste</option>
-                          <option value="commandes">Agent Prise de Commandes</option>
-                          <option value="support">Agent Support Client</option>
-                          <option value="recrutement">Agent Recrutement</option>
-                      </optgroup>
-                      <optgroup label="Forfaits">
-                          <option value="pack-lancement">Pack Lancement ($2 500)</option>
-                          <option value="pack-croissance">Pack Croissance 360° ($6 500)</option>
-                      </optgroup>
-                      <option value="autre">Autre / Je ne sais pas encore</option>
-                  </select>
-                  <span class="msg-erreur" id="erreur-service">Veuillez choisir un service.</span>
-              </div>
-
-              <!-- Budget -->
-              <div class="champ-groupe">
-                  <label class="champ-label" for="budget">Budget envisagé</label>
-                  <select id="budget" name="budget" class="champ-select">
-                      <option value="" disabled selected>Sélectionnez une fourchette…</option>
-                      <option value="moins-1000">Moins de $1 000</option>
-                      <option value="1000-3000">$1 000 – $3 000</option>
-                      <option value="3000-6000">$3 000 – $6 000</option>
-                      <option value="6000-10000">$6 000 – $10 000</option>
-                      <option value="plus-10000">Plus de $10 000</option>
-                      <option value="je-ne-sais-pas">Je ne sais pas encore</option>
-                  </select>
-              </div>
-
-              <!-- Message -->
-              <div class="champ-groupe">
-                  <label class="champ-label" for="message">Décrivez votre projet</label>
-                  <textarea id="message"
-                            name="message"
-                            class="champ-textarea"
-                            placeholder="Parlez-nous de votre entreprise, de vos objectifs et de ce que vous cherchez à accomplir…"
-                            required></textarea>
-                  <span class="msg-erreur" id="erreur-message">Veuillez décrire votre projet.</span>
-              </div>
-
-              <!-- Bouton submit -->
-              <button type="submit" class="btn btn-primaire btn-submit">
-                  Envoyer ma demande <span class="fleche">→</span>
-              </button>
-
-          </form>
-
-          <!-- Message de succès (caché par défaut) -->
-          <div class="form-succes" id="form-succes" aria-live="polite">
-            <div class="succes-icone">✓</div>
-            <h3 style="color: var(--or);">Message envoyé !</h3>
-            <p>Merci pour votre message. Nous vous répondons dans les 24 heures.</p>
-            <a href="index.html" class="btn btn-contour" style="margin-top: 8px;">
-              Retour à l'accueil
+    <!-- NAVIGATION -->
+    <nav class="navbar" role="navigation" aria-label="Navigation principale">
+        <div class="nav-interieur">
+            <a href="index.html" class="nav-logo" aria-label="Publicus Group — Retour à l'accueil">
+                <img src="assets/logo.png" alt="Publicus Group Logo" width="44" height="44" />
+                <span class="nav-logo-texte">PUBLICUS <span>GROUP</span></span>
             </a>
-          </div>
-
+            <ul class="nav-liens" role="list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="a-propos.html">À Propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="btn-nav">Un appel suffit →</a>
+            <button class="burger"
+                    aria-label="Ouvrir le menu de navigation"
+                    aria-expanded="false"
+                    aria-controls="menu-mobile">
+                <span></span><span></span><span></span>
+            </button>
         </div>
+    </nav>
 
-
-        <!-- INFORMATIONS DE CONTACT -->
-        <div class="contact-infos revele-droite">
-
-          <!-- Garantie -->
-          <div class="garantie-bloc">
-            <span class="garantie-emoji">⚡</span>
-            <div class="garantie-texte">
-              <strong>Réponse garantie sous 24h</strong>
-              <p>Nous nous engageons à répondre à toutes les demandes dans la journée.</p>
-            </div>
-          </div>
-
-          <!-- Téléphone -->
-          <div class="info-bloc">
-            <div class="info-icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-              </svg>
-            </div>
-            <div>
-              <p class="info-texte-label">Téléphone</p>
-              <p class="info-texte-valeur">
-                <a href="tel:+15816883346">+1 (581) 688-3346</a>
-              </p>
-            </div>
-          </div>
-
-          <!-- Email -->
-          <div class="info-bloc">
-            <div class="info-icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-            </div>
-            <div>
-              <p class="info-texte-label">Email</p>
-              <p class="info-texte-valeur">
-                <a href="mailto:publicusgroup2026@gmail.com">publicusgroup2026@gmail.com</a>
-              </p>
-            </div>
-          </div>
-
-          <!-- Localisation -->
-          <div class="info-bloc">
-            <div class="info-icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-            </div>
-            <div>
-              <p class="info-texte-label">Localisation</p>
-              <p class="info-texte-valeur">Moncton, Nouveau-Brunswick, Canada</p>
-            </div>
-          </div>
-
-          <!-- Réseaux sociaux -->
-          <div class="info-bloc">
-            <div class="info-icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="18" cy="5" r="3"/>
-                <circle cx="6" cy="12" r="3"/>
-                <circle cx="18" cy="19" r="3"/>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-              </svg>
-            </div>
-            <div>
-              <p class="info-texte-label">Réseaux Sociaux</p>
-              <div style="display:flex; gap: 10px; margin-top: 8px;">
-                <a href="https://www.instagram.com/publicus_group" target="_blank" rel="noopener noreferrer" class="btn-reseau" aria-label="Instagram">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="2" y="2" width="20" height="20" rx="5"/>
-                    <circle cx="12" cy="12" r="4"/>
-                    <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
-                  </svg>
-                </a>
-                <a href="https://www.facebook.com/share/1AqqKRNQzz/" target="_blank" rel="noopener noreferrer" class="btn-reseau" aria-label="Facebook">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-                  </svg>
-                </a>
-                <a href="https://publicusgroup.mychariow.shop" target="_blank" rel="noopener noreferrer" class="btn-reseau" aria-label="Boutique">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <line x1="2" y1="12" x2="22" y2="12"/>
-                    <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Horaires -->
-          <div class="info-bloc">
-            <div class="info-icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
-              </svg>
-            </div>
-            <div style="flex: 1;">
-              <p class="info-texte-label">Disponibilité</p>
-              <table class="horaires-table" style="margin-top: 8px;">
-                <tr>
-                  <td>Lundi – Vendredi</td>
-                  <td>9h – 18h</td>
-                </tr>
-                <tr>
-                  <td>Samedi</td>
-                  <td>10h – 14h</td>
-                </tr>
-                <tr>
-                  <td>Dimanche</td>
-                  <td>Fermé</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-        </div>
-      </div>
+    <div class="menu-mobile" id="menu-mobile" role="dialog" aria-label="Menu de navigation mobile">
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Services</a>
+        <a href="a-propos.html">À Propos</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html" class="btn-nav" style="margin-top:8px;">Un appel suffit →</a>
+        <div class="menu-mobile-contact"><p>+1 (581) 688-3346</p></div>
     </div>
-  </section>
 
 
-  <!-- FAQ RAPIDE -->
-  <section aria-label="Questions fréquentes">
-    <div class="container">
-      <div class="entete-section centre revele">
-        <span class="label-section">FAQ</span>
-        <h2>Questions Fréquentes</h2>
-      </div>
-
-      <div class="grille-2" style="max-width: 900px; margin: 0 auto;">
-
-        <div class="carte-glass revele delai-1">
-          <h3>Quel est le délai de réponse ?</h3>
-          <p style="margin-top: 10px; font-size: 0.9rem;">
-            Nous répondons à toutes les demandes dans les 24 heures en jours ouvrables.
-            Pour les urgences, appelez directement au +1 (581) 688-3346.
-          </p>
-        </div>
-
-        <div class="carte-glass revele delai-2">
-          <h3>Comment se déroule le premier appel ?</h3>
-          <p style="margin-top: 10px; font-size: 0.9rem;">
-            Un appel de découverte de 30 minutes, gratuit et sans engagement, pour comprendre
-            vos besoins et vous proposer la solution la plus adaptée.
-          </p>
-        </div>
-
-        <div class="carte-glass revele delai-3">
-          <h3>Travaillez-vous à distance ?</h3>
-          <p style="margin-top: 10px; font-size: 0.9rem;">
-            Oui, 100% à distance. Nous servons des clients partout au Canada, en Afrique
-            et en Europe via Zoom, WhatsApp et email.
-          </p>
-        </div>
-
-        <div class="carte-glass revele delai-4">
-          <h3>Quels sont les modes de paiement ?</h3>
-          <p style="margin-top: 10px; font-size: 0.9rem;">
-            Virement bancaire, e-transfert, et paiement en ligne sécurisé via notre boutique.
-            Des plans de paiement en plusieurs fois sont disponibles sur demande.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- FOOTER -->
-  <footer role="contentinfo">
-    <div class="container">
-      <div class="footer-grille">
-        <div>
-          <a href="index.html">
-            <div class="footer-logo">
-              <img src="assets/logo.png" alt="Logo Publicus Group" width="52" height="52" />
-              <span class="footer-logo-texte">PUBLICUS <span>GROUP</span></span>
+    <!-- HERO PAGE -->
+    <section class="hero-interieur-page" aria-label="Titre de la page Contact">
+        <div class="container">
+            <div class="revele">
+                <span class="badge">Réponse sous 24h garantie</span>
             </div>
-          </a>
-          <p class="footer-desc">
-            Votre partenaire digital complet à Moncton, NB. Le marketing
-            doit refléter vos valeurs — nous le faisons avec précision.
-          </p>
-          <div class="footer-reseaux">
-            <a href="https://www.instagram.com/publicus_group" class="btn-reseau" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="2" y="2" width="20" height="20" rx="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
-              </svg>
-            </a>
-            <a href="https://www.facebook.com/share/1AqqKRNQzz/" class="btn-reseau" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-              </svg>
-            </a>
-            <a href="https://publicusgroup.mychariow.shop" class="btn-reseau" aria-label="Boutique" target="_blank" rel="noopener noreferrer">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
-              </svg>
-            </a>
-          </div>
+            <h1 class="revele delai-1">
+                Parlons de votre <em>Projet</em>
+            </h1>
+            <p class="sous-titre revele delai-2">
+                Un appel de 30 minutes suffit pour identifier la meilleure stratégie
+                digitale pour votre entreprise. Aucun engagement, tout le potentiel.
+            </p>
         </div>
-        <div>
-          <p class="footer-col-titre">Navigation</p>
-          <ul class="footer-liens" role="list">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="a-propos.html">À Propos</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
+    </section>
+
+
+    <!-- SECTION CONTACT PRINCIPALE -->
+    <section aria-label="Formulaire de contact et coordonnées">
+        <div class="container">
+            <div class="contact-grille">
+
+                <!-- FORMULAIRE -->
+                <div class="carte-formulaire revele-gauche">
+                    <h2>Envoyez-nous un message</h2>
+                    <p>Remplissez ce formulaire et nous vous répondons dans les 24 heures.</p>
+
+                    <!-- Le formulaire -->
+                    <form action="https://api.web3forms.com/submit" method="POST" id="formulaire-contact">
+
+                        <input type="hidden" name="access_key" value="c2e08d0e-1142-44b0-81aa-ddd85755ebf6">
+
+                        <div class="champ-groupe">
+                            <label for="prenom">Prénom</label>
+                            <input type="text" name="prenom" id="prenom" required class="champ-input">
+                        </div>
+
+                        <div class="champ-groupe">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" required class="champ-input">
+                        </div>
+
+                        <div class="champ-groupe">
+                            <label for="message">Message</label>
+                            <textarea name="message" id="message" required class="champ-input"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primaire">
+                            Envoyer ma demande
+                        </button>
+                    </form>
+
+                    <!--- Nom + Prénom --->
+                    <div class="champs-2col">
+                        <div class="champ-groupe">
+                            <label class="champ-label" for="prenom">Prénom</label>
+                            <input type="text"
+                                   id="prenom"
+                                   name="prenom"
+                                   class="champ-input"
+                                   placeholder="Jean"
+                                   required
+                                   autocomplete="given-name" />
+                            <span class="msg-erreur" id="erreur-prenom">Ce champ est requis.</span>
+                        </div>
+                        <div class="champ-groupe">
+                            <label class="champ-label" for="nom">Nom</label>
+                            <input type="text"
+                                   id="nom"
+                                   name="nom"
+                                   class="champ-input"
+                                   placeholder="Dupont"
+                                   required
+                                   autocomplete="family-name" />
+                            <span class="msg-erreur" id="erreur-nom">Ce champ est requis.</span>
+                        </div>
+                    </div>
+
+                    <!-- Email + Téléphone -->
+                    <div class="champs-2col">
+                        <div class="champ-groupe">
+                            <label class="champ-label" for="email">Adresse email</label>
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   class="champ-input"
+                                   placeholder="jean@exemple.com"
+                                   required
+                                   autocomplete="email" />
+                            <span class="msg-erreur" id="erreur-email">Adresse email invalide.</span>
+                        </div>
+                        <div class="champ-groupe">
+                            <label class="champ-label" for="telephone">Téléphone (optionnel)</label>
+                            <input type="tel"
+                                   id="telephone"
+                                   name="telephone"
+                                   class="champ-input"
+                                   placeholder="+1 (506) 000-0000"
+                                   autocomplete="tel" />
+                        </div>
+                    </div>
+
+                    <!-- Entreprise -->
+                    <div class="champ-groupe">
+                        <label class="champ-label" for="entreprise">Nom de l'entreprise (optionnel)</label>
+                        <input type="text"
+                               id="entreprise"
+                               name="entreprise"
+                               class="champ-input"
+                               placeholder="Mon Entreprise Inc."
+                               autocomplete="organization" />
+                    </div>
+
+                    <!-- Service souhaité -->
+                    <div class="champ-groupe">
+                        <label class="champ-label" for="service">Service souhaité</label>
+                        <select id="service" name="service" class="champ-select" required>
+                            <option value="" disabled selected>Choisissez un service…</option>
+                            <optgroup label="Présence Digitale">
+                                <option value="site-vitrine">Site Vitrine</option>
+                                <option value="ecommerce">E-Commerce</option>
+                                <option value="identite">Identité Visuelle</option>
+                            </optgroup>
+                            <optgroup label="Marketing & Croissance">
+                                <option value="seo">SEO Local</option>
+                                <option value="reseaux">Gestion Réseaux Sociaux</option>
+                                <option value="pub">Publicité Payante</option>
+                                <option value="video">Montage Vidéo</option>
+                                <option value="email">Email Marketing</option>
+                                <option value="etude">Étude de Marché</option>
+                            </optgroup>
+                            <optgroup label="Tech & Logiciels">
+                                <option value="stocks">Logiciel Gestion Stocks</option>
+                                <option value="rh">RH & Planification</option>
+                                <option value="app">App Web Sur Mesure</option>
+                            </optgroup>
+                            <optgroup label="Agents IA">
+                                <option value="receptionniste">Agent Réceptionniste</option>
+                                <option value="commandes">Agent Prise de Commandes</option>
+                                <option value="support">Agent Support Client</option>
+                                <option value="recrutement">Agent Recrutement</option>
+                            </optgroup>
+                            <optgroup label="Forfaits">
+                                <option value="pack-lancement">Pack Lancement ($2 500)</option>
+                                <option value="pack-croissance">Pack Croissance 360° ($6 500)</option>
+                            </optgroup>
+                            <option value="autre">Autre / Je ne sais pas encore</option>
+                        </select>
+                        <span class="msg-erreur" id="erreur-service">Veuillez choisir un service.</span>
+                    </div>
+
+                    <!-- Budget -->
+                    <div class="champ-groupe">
+                        <label class="champ-label" for="budget">Budget envisagé</label>
+                        <select id="budget" name="budget" class="champ-select">
+                            <option value="" disabled selected>Sélectionnez une fourchette…</option>
+                            <option value="moins-1000">Moins de $1 000</option>
+                            <option value="1000-3000">$1 000 – $3 000</option>
+                            <option value="3000-6000">$3 000 – $6 000</option>
+                            <option value="6000-10000">$6 000 – $10 000</option>
+                            <option value="plus-10000">Plus de $10 000</option>
+                            <option value="je-ne-sais-pas">Je ne sais pas encore</option>
+                        </select>
+                    </div>
+
+                    <!-- Message -->
+                    <div class="champ-groupe">
+                        <label class="champ-label" for="message">Décrivez votre projet</label>
+                        <textarea id="message"
+                                  name="message"
+                                  class="champ-textarea"
+                                  placeholder="Parlez-nous de votre entreprise, de vos objectifs et de ce que vous cherchez à accomplir…"
+                                  required></textarea>
+                        <span class="msg-erreur" id="erreur-message">Veuillez décrire votre projet.</span>
+                    </div>
+
+                    <!-- Bouton submit -->
+                    <button type="submit" class="btn btn-primaire btn-submit">
+                        Envoyer ma demande <span class="fleche">→</span>
+                    </button>
+
+                    </form>
+
+                    <!-- Message de succès (caché par défaut) -->
+                    <div class="form-succes" id="form-succes" aria-live="polite">
+                        <div class="succes-icone">✓</div>
+                        <h3 style="color: var(--or);">Message envoyé !</h3>
+                        <p>Merci pour votre message. Nous vous répondons dans les 24 heures.</p>
+                        <a href="index.html" class="btn btn-contour" style="margin-top: 8px;">
+                            Retour à l'accueil
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <!-- INFORMATIONS DE CONTACT -->
+                <div class="contact-infos revele-droite">
+
+                    <!-- Garantie -->
+                    <div class="garantie-bloc">
+                        <span class="garantie-emoji">⚡</span>
+                        <div class="garantie-texte">
+                            <strong>Réponse garantie sous 24h</strong>
+                            <p>Nous nous engageons à répondre à toutes les demandes dans la journée.</p>
+                        </div>
+                    </div>
+
+                    <!-- Téléphone -->
+                    <div class="info-bloc">
+                        <div class="info-icone">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="info-texte-label">Téléphone</p>
+                            <p class="info-texte-valeur">
+                                <a href="tel:+15816883346">+1 (581) 688-3346</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="info-bloc">
+                        <div class="info-icone">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="info-texte-label">Email</p>
+                            <p class="info-texte-valeur">
+                                <a href="mailto:publicusgroup2026@gmail.com">publicusgroup2026@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Localisation -->
+                    <div class="info-bloc">
+                        <div class="info-icone">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="info-texte-label">Localisation</p>
+                            <p class="info-texte-valeur">Moncton, Nouveau-Brunswick, Canada</p>
+                        </div>
+                    </div>
+
+                    <!-- Réseaux sociaux -->
+                    <div class="info-bloc">
+                        <div class="info-icone">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="18" cy="5" r="3" />
+                                <circle cx="6" cy="12" r="3" />
+                                <circle cx="18" cy="19" r="3" />
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="info-texte-label">Réseaux Sociaux</p>
+                            <div style="display:flex; gap: 10px; margin-top: 8px;">
+                                <a href="https://www.instagram.com/publicus_group" target="_blank" rel="noopener noreferrer" class="btn-reseau" aria-label="Instagram">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" />
+                                        <circle cx="12" cy="12" r="4" />
+                                        <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                                    </svg>
+                                </a>
+                                <a href="https://www.facebook.com/share/1AqqKRNQzz/" target="_blank" rel="noopener noreferrer" class="btn-reseau" aria-label="Facebook">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+                                    </svg>
+                                </a>
+                                <a href="https://publicusgroup.mychariow.shop" target="_blank" rel="noopener noreferrer" class="btn-reseau" aria-label="Boutique">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <line x1="2" y1="12" x2="22" y2="12" />
+                                        <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Horaires -->
+                    <div class="info-bloc">
+                        <div class="info-icone">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                        </div>
+                        <div style="flex: 1;">
+                            <p class="info-texte-label">Disponibilité</p>
+                            <table class="horaires-table" style="margin-top: 8px;">
+                                <tr>
+                                    <td>Lundi – Vendredi</td>
+                                    <td>9h – 18h</td>
+                                </tr>
+                                <tr>
+                                    <td>Samedi</td>
+                                    <td>10h – 14h</td>
+                                </tr>
+                                <tr>
+                                    <td>Dimanche</td>
+                                    <td>Fermé</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <div>
-          <p class="footer-col-titre">Services</p>
-          <ul class="footer-liens" role="list">
-            <li><a href="services.html#presence-digitale">Présence Digitale</a></li>
-            <li><a href="services.html#marketing">Marketing & Growth</a></li>
-            <li><a href="services.html#tech">Tech & Logiciels</a></li>
-            <li><a href="services.html#agents-ia">Agents IA</a></li>
-            <li><a href="services.html#forfaits">Forfaits Groupés</a></li>
-          </ul>
+    </section>
+
+
+    <!-- FAQ RAPIDE -->
+    <section aria-label="Questions fréquentes">
+        <div class="container">
+            <div class="entete-section centre revele">
+                <span class="label-section">FAQ</span>
+                <h2>Questions Fréquentes</h2>
+            </div>
+
+            <div class="grille-2" style="max-width: 900px; margin: 0 auto;">
+
+                <div class="carte-glass revele delai-1">
+                    <h3>Quel est le délai de réponse ?</h3>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">
+                        Nous répondons à toutes les demandes dans les 24 heures en jours ouvrables.
+                        Pour les urgences, appelez directement au +1 (581) 688-3346.
+                    </p>
+                </div>
+
+                <div class="carte-glass revele delai-2">
+                    <h3>Comment se déroule le premier appel ?</h3>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">
+                        Un appel de découverte de 30 minutes, gratuit et sans engagement, pour comprendre
+                        vos besoins et vous proposer la solution la plus adaptée.
+                    </p>
+                </div>
+
+                <div class="carte-glass revele delai-3">
+                    <h3>Travaillez-vous à distance ?</h3>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">
+                        Oui, 100% à distance. Nous servons des clients partout au Canada, en Afrique
+                        et en Europe via Zoom, WhatsApp et email.
+                    </p>
+                </div>
+
+                <div class="carte-glass revele delai-4">
+                    <h3>Quels sont les modes de paiement ?</h3>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">
+                        Virement bancaire, e-transfert, et paiement en ligne sécurisé via notre boutique.
+                        Des plans de paiement en plusieurs fois sont disponibles sur demande.
+                    </p>
+                </div>
+
+            </div>
         </div>
-        <div>
-          <p class="footer-col-titre">Contact</p>
-          <div class="footer-contact-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-            </svg>
-            <p>+1 (581) 688-3346</p>
-          </div>
-          <div class="footer-contact-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-            <p>Moncton, Nouveau-Brunswick, Canada</p>
-          </div>
-          <div class="footer-contact-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-            <p>publicusgroup2026@gmail.com</p>
-          </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer role="contentinfo">
+        <div class="container">
+            <div class="footer-grille">
+                <div>
+                    <a href="index.html">
+                        <div class="footer-logo">
+                            <img src="assets/logo.png" alt="Logo Publicus Group" width="52" height="52" />
+                            <span class="footer-logo-texte">PUBLICUS <span>GROUP</span></span>
+                        </div>
+                    </a>
+                    <p class="footer-desc">
+                        Votre partenaire digital complet à Moncton, NB. Le marketing
+                        doit refléter vos valeurs — nous le faisons avec précision.
+                    </p>
+                    <div class="footer-reseaux">
+                        <a href="https://www.instagram.com/publicus_group" class="btn-reseau" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" />
+                                <circle cx="12" cy="12" r="4" />
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/share/1AqqKRNQzz/" class="btn-reseau" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+                            </svg>
+                        </a>
+                        <a href="https://publicusgroup.mychariow.shop" class="btn-reseau" aria-label="Boutique" target="_blank" rel="noopener noreferrer">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="2" y1="12" x2="22" y2="12" />
+                                <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <p class="footer-col-titre">Navigation</p>
+                    <ul class="footer-liens" role="list">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="a-propos.html">À Propos</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="footer-col-titre">Services</p>
+                    <ul class="footer-liens" role="list">
+                        <li><a href="services.html#presence-digitale">Présence Digitale</a></li>
+                        <li><a href="services.html#marketing">Marketing & Growth</a></li>
+                        <li><a href="services.html#tech">Tech & Logiciels</a></li>
+                        <li><a href="services.html#agents-ia">Agents IA</a></li>
+                        <li><a href="services.html#forfaits">Forfaits Groupés</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="footer-col-titre">Contact</p>
+                    <div class="footer-contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+                        </svg>
+                        <p>+1 (581) 688-3346</p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <p>Moncton, Nouveau-Brunswick, Canada</p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                        <p>publicusgroup2026@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bas">
+                <p>© 2025–2026 <a href="index.html">Publicus Group</a>. Tous droits réservés.</p>
+                <p>Moncton, NB · Canada</p>
+            </div>
         </div>
-      </div>
-      <div class="footer-bas">
-        <p>© 2025–2026 <a href="index.html">Publicus Group</a>. Tous droits réservés.</p>
-        <p>Moncton, NB · Canada</p>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
- 
+    <script src="script.js"></script>
 
-  <!-- Validation du formulaire de contact -->
-  <script>
-    (function () {
-      const form    = document.getElementById('formulaire-contact');
-      const succes  = document.getElementById('form-succes');
+    <!-- Validation du formulaire de contact -->
+    <script>
+        (function () {
+            const form = document.getElementById('formulaire-contact');
+            const succes = document.getElementById('form-succes');
 
-      if (!form) return;
+            if (!form) return;
 
-      function validerChamp(input) {
-        const groupe  = input.closest('.champ-groupe');
-        const erreur  = groupe ? groupe.querySelector('.msg-erreur') : null;
-        let valide    = true;
+            function validerChamp(input) {
+                const groupe = input.closest('.champ-groupe');
+                const erreur = groupe ? groupe.querySelector('.msg-erreur') : null;
+                let valide = true;
 
-        if (input.required && !input.value.trim()) {
-          valide = false;
-        } else if (input.type === 'email') {
-          valide = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
-        }
+                if (input.required && !input.value.trim()) {
+                    valide = false;
+                } else if (input.type === 'email') {
+                    valide = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+                }
 
-        if (input.tagName === 'SELECT' && input.required && !input.value) {
-          valide = false;
-        }
+                if (input.tagName === 'SELECT' && input.required && !input.value) {
+                    valide = false;
+                }
 
-        if (erreur) {
-          erreur.classList.toggle('visible', !valide);
-          input.classList.toggle('champ-erreur', !valide);
-        }
+                if (erreur) {
+                    erreur.classList.toggle('visible', !valide);
+                    input.classList.toggle('champ-erreur', !valide);
+                }
 
-        return valide;
-      }
+                return valide;
+            }
 
-      // Validation au blur
-      form.querySelectorAll('.champ-input, .champ-textarea, .champ-select').forEach(function (el) {
-        el.addEventListener('blur', function () { validerChamp(el); });
-        el.addEventListener('input', function () { if (el.classList.contains('champ-erreur')) validerChamp(el); });
-      });
+            // Validation au blur
+            form.querySelectorAll('.champ-input, .champ-textarea, .champ-select').forEach(function (el) {
+                el.addEventListener('blur', function () { validerChamp(el); });
+                el.addEventListener('input', function () { if (el.classList.contains('champ-erreur')) validerChamp(el); });
+            });
 
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
 
-        var champRequis = form.querySelectorAll('[required]');
-        var toutValide  = true;
+                var champRequis = form.querySelectorAll('[required]');
+                var toutValide = true;
 
-        champRequis.forEach(function (el) {
-          if (!validerChamp(el)) toutValide = false;
-        });
+                champRequis.forEach(function (el) {
+                    if (!validerChamp(el)) toutValide = false;
+                });
 
-        if (!toutValide) return;
+                if (!toutValide) return;
 
-        // Simuler l'envoi (remplacer par un fetch réel si backend disponible)
-        var btn = form.querySelector('[type="submit"]');
-        btn.textContent = 'Envoi en cours…';
-        btn.disabled    = true;
+                // Simuler l'envoi (remplacer par un fetch réel si backend disponible)
+                var btn = form.querySelector('[type="submit"]');
+                btn.textContent = 'Envoi en cours…';
+                btn.disabled = true;
 
-        setTimeout(function () {
-          form.style.display    = 'none';
-          succes.classList.add('visible');
-          succes.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 1200);
-      });
-    })();
-  </script>
+                setTimeout(function () {
+                    form.style.display = 'none';
+                    succes.classList.add('visible');
+                    succes.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 1200);
+            });
+        })();
+    </script>
 
 </body>
 </html>

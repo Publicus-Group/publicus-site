@@ -250,30 +250,69 @@ function initFormulaireContact() {
 
 
   /* ── Soumission du formulaire ── */
-  formulaire.addEventListener('submit', (e) => {
-    e.preventDefault();   /* Empêche le rechargement de la page */
+    /* ── Soumission du formulaire ── */
+    formulaire.addEventListener('submit', (e) => {
+        e.preventDefault();   /* Empêche le rechargement de la page */
 
-    let formulaireValide = true;
+        let formulaireValide = true;
 
-    /* Valide tous les champs */
-    champs.forEach(champ => {
-      if (!validerChamp(champ)) {
-        formulaireValide = false;
-      }
+        /* Valide tous les champs */
+        champs.forEach(champ => {
+            if (!validerChamp(champ)) {
+                formulaireValide = false;
+            }
+        });
+
+        /* Si tout est valide → ENVOI RÉEL À WEB3FORMS */
+        if (formulaireValide) {
+            // 1. On prépare le bouton pour montrer que ça charge
+            const btn = formulaire.querySelector('button[type="submit"]');
+            const texteOriginal = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = "Envoi en cours...";
+
+            // 2. On récupère les données du formulaire
+            const formData = new FormData(formulaire);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            // 3. On envoie les données vers l'API Web3Forms
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+                .then(async (response) => {
+                    if (response.status == 200) {
+                        // Si ça a marché, on affiche ton message de succès "MESSAGE ENVOYÉ !"
+                        simulerEnvoi();
+                        formulaire.reset(); // On vide le formulaire
+                    } else {
+                        alert("Erreur lors de l'envoi au serveur. Vérifiez votre clé.");
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert("Un problème réseau est survenu.");
+                })
+                .finally(() => {
+                    // On remet le bouton à son état normal à la fin
+                    btn.disabled = false;
+                    btn.innerHTML = texteOriginal;
+                });
+
+        } else {
+            /* Faire défiler vers le premier champ en erreur */
+            const premierErreur = formulaire.querySelector('.champ-erreur');
+            if (premierErreur) {
+                premierErreur.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                premierErreur.focus();
+            }
+        }
     });
-
-    /* Si tout est valide → simuler l'envoi */
-    if (formulaireValide) {
-      simulerEnvoi();
-    } else {
-      /* Faire défiler vers le premier champ en erreur */
-      const premierErreur = formulaire.querySelector('.champ-erreur');
-      if (premierErreur) {
-        premierErreur.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        premierErreur.focus();
-      }
-    }
-  });
 
 
   /* ── Valider un champ individuel ── */
@@ -348,33 +387,58 @@ function initFormulaireContact() {
 
 
   /* ── Simuler l'envoi (remplacer par une vraie API si nécessaire) ── */
-  function simulerEnvoi() {
-    const btnEnvoyer  = formulaire.querySelector('[type="submit"]');
-    const texteOriginal = btnEnvoyer.innerHTML;
+    /* ── ENVOI RÉEL (Web3Forms) ── */
+    function simulerEnvoi() {
+        const btnEnvoyer = formulaire.querySelector('[type="submit"]');
+        const texteOriginal = btnEnvoyer.innerHTML;
 
-    /* État chargement */
-    btnEnvoyer.innerHTML  = '⏳ Envoi en cours...';
-    btnEnvoyer.disabled   = true;
-    btnEnvoyer.style.opacity = '0.72';
+        /* État chargement visuel */
+        btnEnvoyer.innerHTML = '⏳ Envoi en cours...';
+        btnEnvoyer.disabled = true;
+        btnEnvoyer.style.opacity = '0.72';
 
-    /* Simuler 2 secondes de délai réseau */
-    setTimeout(() => {
-      /* Cacher le formulaire */
-      formulaire.style.display = 'none';
+        /* Préparation des données pour l'envoi réel */
+        const formData = new FormData(formulaire);
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
 
-      /* Afficher le message de succès */
-      const succes = document.querySelector('#form-succes');
-      if (succes) {
-        succes.classList.add('visible');
-      }
-
-      /* Toast global (optionnel) */
-      if (window.afficherToast) {
-        window.afficherToast('Message envoyé avec succès ! On vous répond sous 24h. ✅');
-      }
-
-    }, 2000);
-  }
+        /* Envoi vers l'API Web3Forms */
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+            .then(async (response) => {
+                if (response.status == 200) {
+                    /* SUCCÈS : On affiche le message de confirmation sur le site */
+                    formulaire.style.display = 'none';
+                    const succes = document.querySelector('#form-succes');
+                    if (succes) {
+                        succes.classList.add('visible');
+                    }
+                    if (window.afficherToast) {
+                        window.afficherToast('Message envoyé avec succès ! ✅');
+                    }
+                } else {
+                    /* ERREUR SERVEUR */
+                    alert("Erreur lors de l'envoi au serveur. Vérifiez votre clé d'accès.");
+                    btnEnvoyer.disabled = false;
+                    btnEnvoyer.innerHTML = texteOriginal;
+                    btnEnvoyer.style.opacity = '1';
+                }
+            })
+            .catch(error => {
+                /* ERREUR RÉSEAU */
+                console.error(error);
+                alert("Un problème réseau est survenu. Réessayez plus tard.");
+                btnEnvoyer.disabled = false;
+                btnEnvoyer.innerHTML = texteOriginal;
+                btnEnvoyer.style.opacity = '1';
+            });
+    }
 
 }
 
