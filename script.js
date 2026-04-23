@@ -1,567 +1,315 @@
 /* ================================================================
    PUBLICUS GROUP — script.js
-   Fichier JS Unique · Partagé par les 4 pages HTML
+   Script principal partagé par les 4 pages du site.
    ----------------------------------------------------------------
    TABLE DES MATIÈRES :
-   1.  Initialisation (DOMContentLoaded)
-   2.  Navigation — Scroll effect + Burger menu
-   3.  Lien actif automatique dans la navbar
-   4.  Scroll Reveal — IntersectionObserver
-   5.  Compteur de statistiques animé
-   6.  Validation et envoi du formulaire de contact
-   7.  Parallaxe léger sur le Hero
-   8.  Lueur qui suit le curseur (desktop)
-   9.  Utilitaire global : Toast notification
+   1. Navigation (navbar scroll + burger menu)
+   2. Animations scroll (Intersection Observer)
+   3. Compteur de statistiques animé
+   4. Formulaire de contact (Web3Forms + validation)
    ================================================================ */
 
-'use strict';
+(function () {
+  'use strict';
 
-/* ================================================================
-   1. INITIALISATION
-      Tout le code s'exécute après le chargement du DOM
-   ================================================================ */
+  /* ================================================================
+     1. NAVIGATION
+        - Classe "scrolled" sur la navbar au défilement
+        - Burger menu (ouverture / fermeture / accessibilité)
+     ================================================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
+  var navbar     = document.querySelector('.navbar');
+  var burger     = document.querySelector('.burger');
+  var menuMobile = document.getElementById('menu-mobile');
 
-  /* Lance chaque module indépendamment */
-  initNavigation();
-  initLienActif();
-  initScrollReveal();
-  initCompteurs();
-  initFormulaireContact();
-  initParallaxe();
-  initLueurCurseur();
-
-});
-
-
-/* ================================================================
-   2. NAVIGATION
-      - Effet de flou quand l'utilisateur scrolle
-      - Menu burger mobile (ouvrir / fermer)
-      - Fermeture avec touche Échap
-   ================================================================ */
-
-function initNavigation() {
-
-  const navbar     = document.querySelector('.navbar');
-  const burger     = document.querySelector('.burger');
-  const menuMobile = document.querySelector('.menu-mobile');
-
-  /* Quitte silencieusement si les éléments n'existent pas */
-  if (!navbar) return;
-
-  /* ── Effet scroll sur la navbar ── */
-  const gererScroll = () => {
-    if (window.scrollY > 45) {
-      navbar.classList.add('scrollee');
+  /* Ajoute la classe .scrolled dès que l'utilisateur fait défiler */
+  function gererScroll() {
+    if (!navbar) return;
+    if (window.scrollY > 20) {
+      navbar.classList.add('scrolled');
     } else {
-      navbar.classList.remove('scrollee');
+      navbar.classList.remove('scrolled');
     }
-  };
+  }
 
-  /* passive:true améliore les performances sur mobile */
   window.addEventListener('scroll', gererScroll, { passive: true });
+  gererScroll(); /* Appel immédiat au chargement */
 
-  /* Vérifier l'état initial au chargement */
-  gererScroll();
+  /* Burger : toggle du menu mobile */
+  if (burger && menuMobile) {
+    burger.addEventListener('click', function () {
+      var estOuvert = menuMobile.classList.toggle('ouvert');
+      burger.setAttribute('aria-expanded', estOuvert ? 'true' : 'false');
+    });
 
+    /* Ferme le menu si on clique sur un lien */
+    menuMobile.querySelectorAll('a').forEach(function (lien) {
+      lien.addEventListener('click', function () {
+        menuMobile.classList.remove('ouvert');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+    });
 
-  /* ── Burger menu ── */
-  if (!burger || !menuMobile) return;
-
-  const ouvrirMenu = () => {
-    burger.classList.add('ouvert');
-    menuMobile.classList.add('ouvert');
-    document.body.style.overflow = 'hidden';   /* Bloque le scroll de la page */
-    burger.setAttribute('aria-expanded', 'true');
-  };
-
-  const fermerMenu = () => {
-    burger.classList.remove('ouvert');
-    menuMobile.classList.remove('ouvert');
-    document.body.style.overflow = '';   /* Réactive le scroll */
-    burger.setAttribute('aria-expanded', 'false');
-  };
-
-  /* Basculer au clic du burger */
-  burger.addEventListener('click', () => {
-    menuMobile.classList.contains('ouvert') ? fermerMenu() : ouvrirMenu();
-  });
-
-  /* Fermer quand on clique sur un lien du menu mobile */
-  menuMobile.querySelectorAll('a').forEach(lien => {
-    lien.addEventListener('click', fermerMenu);
-  });
-
-  /* Fermer avec la touche Échap */
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menuMobile.classList.contains('ouvert')) {
-      fermerMenu();
-    }
-  });
-
-}
-
-
-/* ================================================================
-   3. LIEN ACTIF
-      Détecte la page courante et ajoute la classe "actif"
-      sur le lien de navigation correspondant
-   ================================================================ */
-
-function initLienActif() {
-
-  /* Récupère le nom du fichier (ex: "services.html") */
-  const pageCourante = window.location.pathname.split('/').pop() || 'index.html';
-
-  /* Sélectionne tous les liens de la navbar et du menu mobile */
-  const tousLesLiens = document.querySelectorAll('.nav-liens a, .menu-mobile a[href]');
-
-  tousLesLiens.forEach(lien => {
-    const href = lien.getAttribute('href');
-
-    /* Compare le href avec le nom de la page courante */
-    const estActif =
-      href === pageCourante ||
-      (pageCourante === '' && href === 'index.html') ||
-      (pageCourante === '/' && href === 'index.html');
-
-    if (estActif) {
-      lien.classList.add('actif');
-      lien.setAttribute('aria-current', 'page');
-    }
-  });
-
-}
-
-
-/* ================================================================
-   4. SCROLL REVEAL — IntersectionObserver
-      Les éléments avec .revele, .revele-gauche, .revele-droite
-      deviennent visibles en entrant dans le viewport
-   ================================================================ */
-
-function initScrollReveal() {
-
-  /* Configuration de l'observer */
-  const config = {
-    threshold:  0.13,             /* L'élément doit être visible à 13% */
-    rootMargin: '0px 0px -50px 0px'  /* Déclenche un peu avant d'atteindre le bas */
-  };
-
-  const observateur = new IntersectionObserver((entrees) => {
-    entrees.forEach(entree => {
-      if (entree.isIntersecting) {
-        /* Ajoute la classe "visible" → déclenche l'animation CSS */
-        entree.target.classList.add('visible');
+    /* Ferme le menu avec la touche Échap */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menuMobile.classList.contains('ouvert')) {
+        menuMobile.classList.remove('ouvert');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.focus();
       }
     });
-  }, config);
-
-  /* Observe tous les éléments animables */
-  const selecteurs = '.revele, .revele-gauche, .revele-droite';
-  document.querySelectorAll(selecteurs).forEach(el => {
-    observateur.observe(el);
-  });
-
-}
+  }
 
 
-/* ================================================================
-   5. COMPTEUR DE STATISTIQUES ANIMÉ
-      Les éléments [data-cible] comptent de 0 jusqu'à la valeur
-      cible en utilisant une animation d'easing fluide
-   ================================================================ */
+  /* ================================================================
+     2. ANIMATIONS SCROLL (Intersection Observer)
+        Ajoute la classe .visible sur les éléments .revele, 
+        .revele-gauche et .revele-droite quand ils entrent dans le
+        viewport. Déclenche en cascade grâce aux classes .delai-N.
+     ================================================================ */
 
-function initCompteurs() {
+  var selecteurRevele = '.revele, .revele-gauche, .revele-droite';
+  var elementsRevele  = document.querySelectorAll(selecteurRevele);
 
-  /* Fonction d'animation d'un compteur individuel */
-  const animer = (element, cible, suffixe = '', duree = 2000) => {
-    const debut = performance.now();
+  if (elementsRevele.length > 0 && 'IntersectionObserver' in window) {
+    var observateurScroll = new IntersectionObserver(
+      function (entrees) {
+        entrees.forEach(function (entree) {
+          if (entree.isIntersecting) {
+            entree.target.classList.add('visible');
+            observateurScroll.unobserve(entree.target); /* N'observe qu'une seule fois */
+          }
+        });
+      },
+      {
+        threshold:  0.12,   /* Déclenche quand 12% de l'élément est visible */
+        rootMargin: '0px 0px -40px 0px' /* Légère marge basse pour plus de fluidité */
+      }
+    );
 
-    const frame = (tempsActuel) => {
-      const elapsed  = tempsActuel - debut;
-      const progress = Math.min(elapsed / duree, 1);
+    elementsRevele.forEach(function (el) {
+      observateurScroll.observe(el);
+    });
+  } else {
+    /* Fallback : rend tout visible immédiatement si IntersectionObserver non supporté */
+    elementsRevele.forEach(function (el) {
+      el.classList.add('visible');
+    });
+  }
 
-      /* Easing "ease-out-cubic" pour un ralentissement naturel */
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const valeur = Math.floor(eased * cible);
 
+  /* ================================================================
+     3. COMPTEUR DE STATISTIQUES
+        Anime les chiffres dans .stat-chiffre de 0 jusqu'à data-cible.
+        Utilise requestAnimationFrame pour des performances optimales.
+     ================================================================ */
+
+  var statsElements = document.querySelectorAll('.stat-chiffre');
+
+  if (statsElements.length > 0 && 'IntersectionObserver' in window) {
+    var observateurStats = new IntersectionObserver(
+      function (entrees) {
+        entrees.forEach(function (entree) {
+          if (entree.isIntersecting) {
+            animerCompteur(entree.target);
+            observateurStats.unobserve(entree.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    statsElements.forEach(function (el) {
+      observateurStats.observe(el);
+    });
+  }
+
+  function animerCompteur(element) {
+    var cible    = parseInt(element.getAttribute('data-cible'), 10) || 0;
+    var suffixe  = element.getAttribute('data-suffixe') || '';
+    var duree    = 1800; /* Durée totale en ms */
+    var debut    = null;
+    var valeurInitiale = 0;
+
+    function etape(horodatage) {
+      if (!debut) debut = horodatage;
+      var progres  = Math.min((horodatage - debut) / duree, 1);
+      /* Easing ease-out cubic */
+      var eased    = 1 - Math.pow(1 - progres, 3);
+      var valeur   = Math.floor(eased * (cible - valeurInitiale) + valeurInitiale);
       element.textContent = valeur + suffixe;
-
-      if (progress < 1) {
-        requestAnimationFrame(frame);
+      if (progres < 1) {
+        requestAnimationFrame(etape);
       } else {
-        /* Valeur finale exacte */
         element.textContent = cible + suffixe;
       }
-    };
-
-    requestAnimationFrame(frame);
-  };
-
-  /* Observer les compteurs — ils se lancent quand ils deviennent visibles */
-  const observateur = new IntersectionObserver((entrees) => {
-    entrees.forEach(entree => {
-      if (entree.isIntersecting && !entree.target.dataset.compte) {
-        entree.target.dataset.compte = 'true';   /* Évite de relancer l'animation */
-
-        const cible  = parseInt(entree.target.dataset.cible);
-        const suffixe = entree.target.dataset.suffixe || '';
-
-        animer(entree.target, cible, suffixe);
-      }
-    });
-  }, { threshold: 0.6 });
-
-  document.querySelectorAll('[data-cible]').forEach(el => {
-    observateur.observe(el);
-  });
-
-}
-
-
-/* ================================================================
-   6. FORMULAIRE DE CONTACT
-      - Validation en temps réel (champ par champ)
-      - Validation globale à la soumission
-      - Simulation d'envoi avec feedback visuel
-   ================================================================ */
-
-function initFormulaireContact() {
-
-  const formulaire = document.querySelector('#formulaire-contact');
-  if (!formulaire) return;   /* Pas sur cette page → quitte */
-
-  /* Tous les champs à valider */
-  const champs = formulaire.querySelectorAll('.champ-input, .champ-textarea, .champ-select');
-
-  /* ── Validation en temps réel (sur blur = quand on quitte le champ) ── */
-  champs.forEach(champ => {
-
-    /* Validation au départ du champ */
-    champ.addEventListener('blur', () => validerChamp(champ));
-
-    /* Effacer l'erreur quand l'utilisateur retape */
-    champ.addEventListener('input', () => effacerErreur(champ));
-
-  });
-
-
-  /* ── Soumission du formulaire ── */
-    /* ── Soumission du formulaire ── */
-    formulaire.addEventListener('submit', (e) => {
-        e.preventDefault();   /* Empêche le rechargement de la page */
-
-        let formulaireValide = true;
-
-        /* Valide tous les champs */
-        champs.forEach(champ => {
-            if (!validerChamp(champ)) {
-                formulaireValide = false;
-            }
-        });
-
-        /* Si tout est valide → ENVOI RÉEL À WEB3FORMS */
-        if (formulaireValide) {
-            // 1. On prépare le bouton pour montrer que ça charge
-            const btn = formulaire.querySelector('button[type="submit"]');
-            const texteOriginal = btn.innerHTML;
-            btn.disabled = true;
-            btn.innerHTML = "Envoi en cours...";
-
-            // 2. On récupère les données du formulaire
-            const formData = new FormData(formulaire);
-            const object = Object.fromEntries(formData);
-            const json = JSON.stringify(object);
-
-            // 3. On envoie les données vers l'API Web3Forms
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: json
-            })
-                .then(async (response) => {
-                    if (response.status == 200) {
-                        // Si ça a marché, on affiche ton message de succès "MESSAGE ENVOYÉ !"
-                        simulerEnvoi();
-                        formulaire.reset(); // On vide le formulaire
-                    } else {
-                        alert("Erreur lors de l'envoi au serveur. Vérifiez votre clé.");
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert("Un problème réseau est survenu.");
-                })
-                .finally(() => {
-                    // On remet le bouton à son état normal à la fin
-                    btn.disabled = false;
-                    btn.innerHTML = texteOriginal;
-                });
-
-        } else {
-            /* Faire défiler vers le premier champ en erreur */
-            const premierErreur = formulaire.querySelector('.champ-erreur');
-            if (premierErreur) {
-                premierErreur.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                premierErreur.focus();
-            }
-        }
-    });
-
-
-  /* ── Valider un champ individuel ── */
-  function validerChamp(champ) {
-    const valeur = champ.value.trim();
-    const nom    = champ.name || champ.getAttribute('name') || '';
-    let valide   = true;
-    let message  = '';
-
-    /* Règle 1 : Champ obligatoire */
-    if (champ.hasAttribute('required') && !valeur) {
-      valide  = false;
-      message = 'Ce champ est obligatoire.';
     }
 
-    /* Règle 2 : Format email */
-    else if ((nom === 'email' || champ.type === 'email') && valeur) {
-      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-      if (!regexEmail.test(valeur)) {
-        valide  = false;
-        message = 'Veuillez entrer une adresse email valide.';
-      }
+    requestAnimationFrame(etape);
+  }
+
+
+  /* ================================================================
+     4. FORMULAIRE DE CONTACT (Web3Forms)
+        - Validation HTML5 + JS personnalisée
+        - Envoi via fetch vers l'API Web3Forms
+        - États : chargement / succès / erreur
+     ================================================================ */
+
+  var form             = document.getElementById('contact-form');
+  var successMessage   = document.getElementById('success-message');
+  var errorNotif       = document.getElementById('error-notification');
+  var errorText        = document.getElementById('error-text');
+  var submitBtn        = document.getElementById('submit-btn');
+  var btnLabel         = document.getElementById('btn-label');
+  var btnSpinner       = document.getElementById('btn-spinner');
+
+  /* Quitte proprement si le formulaire n'est pas sur cette page */
+  if (!form) return;
+
+  /* ── Validation individuelle d'un champ ── */
+  function validerChamp(input) {
+    var groupe = input.closest('.champ-groupe');
+    if (!groupe) return true;
+
+    var msgErreur = groupe.querySelector('.msg-erreur');
+    var valide    = true;
+
+    if (input.tagName === 'SELECT') {
+      valide = !input.required || input.value !== '';
+    } else if (input.type === 'email') {
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      valide = emailRegex.test(input.value.trim());
+    } else if (input.required) {
+      valide = input.value.trim() !== '';
     }
 
-    /* Règle 3 : Téléphone (optionnel mais format valide si rempli) */
-    else if (nom === 'telephone' && valeur) {
-      const regexTel = /^[\d\s\+\-\(\)\.]{7,20}$/;
-      if (!regexTel.test(valeur)) {
-        valide  = false;
-        message = 'Numéro de téléphone invalide (ex: +1 581 688-3346).';
-      }
-    }
-
-    /* Règle 4 : Message minimum 20 caractères */
-    else if (nom === 'message' && valeur && valeur.length < 20) {
-      valide  = false;
-      message = 'Le message doit contenir au moins 20 caractères.';
-    }
-
-    /* Afficher ou effacer l'erreur */
-    if (!valide) {
-      afficherErreur(champ, message);
-    } else {
-      effacerErreur(champ);
+    input.classList.toggle('champ-erreur', !valide);
+    if (msgErreur) {
+      msgErreur.classList.toggle('visible', !valide);
     }
 
     return valide;
   }
 
-
-  /* ── Afficher un message d'erreur sous le champ ── */
-  function afficherErreur(champ, message) {
-    champ.classList.add('champ-erreur');
-
-    const msgEl = champ.parentElement.querySelector('.msg-erreur');
-    if (msgEl) {
-      msgEl.textContent = message;
-      msgEl.classList.add('visible');
-    }
-  }
-
-
-  /* ── Effacer un message d'erreur ── */
-  function effacerErreur(champ) {
-    champ.classList.remove('champ-erreur');
-
-    const msgEl = champ.parentElement.querySelector('.msg-erreur');
-    if (msgEl) {
-      msgEl.classList.remove('visible');
-    }
-  }
-
-
-  /* ── Simuler l'envoi (remplacer par une vraie API si nécessaire) ── */
-    /* ── ENVOI RÉEL (Web3Forms) ── */
-    function simulerEnvoi() {
-        const btnEnvoyer = formulaire.querySelector('[type="submit"]');
-        const texteOriginal = btnEnvoyer.innerHTML;
-
-        /* État chargement visuel */
-        btnEnvoyer.innerHTML = '⏳ Envoi en cours...';
-        btnEnvoyer.disabled = true;
-        btnEnvoyer.style.opacity = '0.72';
-
-        /* Préparation des données pour l'envoi réel */
-        const formData = new FormData(formulaire);
-        const object = Object.fromEntries(formData);
-        const json = JSON.stringify(object);
-
-        /* Envoi vers l'API Web3Forms */
-        fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: json
-        })
-            .then(async (response) => {
-                if (response.status == 200) {
-                    /* SUCCÈS : On affiche le message de confirmation sur le site */
-                    formulaire.style.display = 'none';
-                    const succes = document.querySelector('#form-succes');
-                    if (succes) {
-                        succes.classList.add('visible');
-                    }
-                    if (window.afficherToast) {
-                        window.afficherToast('Message envoyé avec succès ! ✅');
-                    }
-                } else {
-                    /* ERREUR SERVEUR */
-                    alert("Erreur lors de l'envoi au serveur. Vérifiez votre clé d'accès.");
-                    btnEnvoyer.disabled = false;
-                    btnEnvoyer.innerHTML = texteOriginal;
-                    btnEnvoyer.style.opacity = '1';
-                }
-            })
-            .catch(error => {
-                /* ERREUR RÉSEAU */
-                console.error(error);
-                alert("Un problème réseau est survenu. Réessayez plus tard.");
-                btnEnvoyer.disabled = false;
-                btnEnvoyer.innerHTML = texteOriginal;
-                btnEnvoyer.style.opacity = '1';
-            });
-    }
-
-}
-
-
-/* ================================================================
-   7. PARALLAXE LÉGER SUR LE HERO
-      Le contenu du hero se déplace doucement lors du scroll,
-      créant un effet de profondeur
-   ================================================================ */
-
-function initParallaxe() {
-
-  const hero = document.querySelector('.hero');
-  if (!hero) return;
-
-  const contenu = hero.querySelector('.hero-contenu');
-  if (!contenu) return;
-
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-
-    /* Uniquement dans les limites du hero (1 écran de hauteur) */
-    if (scrollY < window.innerHeight) {
-      /* Décalage vertical léger */
-      contenu.style.transform = `translateY(${scrollY * 0.22}px)`;
-      /* Fondu progressif */
-      contenu.style.opacity   = String(1 - (scrollY / (window.innerHeight * 0.75)));
-    }
-  }, { passive: true });   /* passive:true pour de meilleures performances */
-
-}
-
-
-/* ================================================================
-   8. LUEUR QUI SUIT LE CURSEUR (Desktop uniquement)
-      Un halo doré semi-transparent suit la souris discrètement
-   ================================================================ */
-
-function initLueurCurseur() {
-
-  /* Seulement sur les écrans avec pointeur précis (souris) */
-  if (!window.matchMedia('(pointer: fine)').matches) return;
-
-  const lueur = document.createElement('div');
-  lueur.setAttribute('aria-hidden', 'true');
-
-  lueur.style.cssText = `
-    position:       fixed;
-    width:          320px;
-    height:         320px;
-    border-radius:  50%;
-    background:     radial-gradient(circle, rgba(245,197,24,0.055) 0%, transparent 70%);
-    pointer-events: none;
-    z-index:        0;
-    transform:      translate(-50%, -50%);
-    transition:     opacity 0.3s ease;
-    will-change:    left, top;
-  `;
-
-  document.body.appendChild(lueur);
-
-  document.addEventListener('mousemove', (e) => {
-    lueur.style.left = e.clientX + 'px';
-    lueur.style.top  = e.clientY + 'px';
-  }, { passive: true });
-
-  /* Masquer quand la souris quitte la fenêtre */
-  document.addEventListener('mouseleave', () => { lueur.style.opacity = '0'; });
-  document.addEventListener('mouseenter', () => { lueur.style.opacity = '1'; });
-
-}
-
-
-/* ================================================================
-   9. TOAST NOTIFICATION — Utilitaire global
-      Usage : window.afficherToast('Message', 'succes' | 'erreur')
-   ================================================================ */
-
-window.afficherToast = function(message, type = 'succes') {
-
-  /* Couleur selon le type */
-  const couleur = type === 'succes' ? '#F5C518' : '#E74C3C';
-
-  const toast = document.createElement('div');
-  toast.setAttribute('role', 'alert');
-  toast.setAttribute('aria-live', 'polite');
-
-  toast.style.cssText = `
-    position:        fixed;
-    bottom:          28px;
-    right:           28px;
-    background:      rgba(26, 10, 0, 0.96);
-    border:          1px solid ${couleur};
-    border-left:     4px solid ${couleur};
-    color:           #fff;
-    padding:         16px 22px;
-    border-radius:   10px;
-    font-family:     'Barlow Condensed', sans-serif;
-    font-size:       0.92rem;
-    letter-spacing:  0.04em;
-    z-index:         9999;
-    backdrop-filter: blur(12px);
-    transform:       translateX(120%);
-    transition:      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    max-width:       340px;
-    line-height:     1.5;
-    box-shadow:      0 8px 32px rgba(0,0,0,0.5);
-  `;
-
-  toast.textContent = message;
-  document.body.appendChild(toast);
-
-  /* Animer l'entrée */
-  requestAnimationFrame(() => {
-    toast.style.transform = 'translateX(0)';
+  /* ── Validation en temps réel (après premier échec) ── */
+  form.querySelectorAll('.champ-input, .champ-textarea, .champ-select').forEach(function (el) {
+    el.addEventListener('blur', function () {
+      validerChamp(el);
+    });
+    el.addEventListener('input', function () {
+      if (el.classList.contains('champ-erreur')) {
+        validerChamp(el);
+      }
+    });
+    el.addEventListener('change', function () {
+      if (el.classList.contains('champ-erreur')) {
+        validerChamp(el);
+      }
+    });
   });
 
-  /* Supprimer après 4 secondes */
-  setTimeout(() => {
-    toast.style.transform = 'translateX(120%)';
-    setTimeout(() => {
-      if (toast.parentNode) toast.remove();
-    }, 400);
-  }, 4000);
+  /* ── État du bouton : chargement ── */
+  function setBtnChargement(actif) {
+    submitBtn.disabled = actif;
+    if (btnSpinner) btnSpinner.style.display = actif ? 'block' : 'none';
+    if (btnLabel)   btnLabel.textContent     = actif ? 'Envoi en cours…' : 'Envoyer ma demande →';
+  }
 
-};
+  /* ── Afficher l'erreur ── */
+  function afficherErreur(message) {
+    if (errorText)  errorText.textContent = message ||
+      'Une erreur est survenue. Veuillez réessayer ou écrire à publicusgroup2026@gmail.com.';
+    if (errorNotif) {
+      errorNotif.classList.remove('visible');
+      /* Force un reflow pour relancer l'animation CSS */
+      void errorNotif.offsetWidth;
+      errorNotif.classList.add('visible');
+    }
+  }
+
+  /* ── Afficher le succès ── */
+  function afficherSucces() {
+    form.style.display = 'none';
+
+    if (successMessage) {
+      /* Rend l'élément flex d'abord, puis anime via rAF */
+      successMessage.style.display = 'flex';
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          successMessage.classList.add('visible');
+          successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      });
+    }
+  }
+
+  /* ── Soumission du formulaire ── */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    /* Masque l'éventuelle erreur précédente */
+    if (errorNotif) errorNotif.classList.remove('visible');
+
+    /* Valide tous les champs requis */
+    var champsRequis = form.querySelectorAll('[required]');
+    var toutValide   = true;
+
+    champsRequis.forEach(function (champ) {
+      if (!validerChamp(champ)) {
+        toutValide = false;
+      }
+    });
+
+    if (!toutValide) {
+      /* Fait défiler jusqu'au premier champ en erreur */
+      var premierErreur = form.querySelector('.champ-erreur');
+      if (premierErreur) {
+        premierErreur.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        premierErreur.focus();
+      }
+      return;
+    }
+
+    /* Lance l'état de chargement */
+    setBtnChargement(true);
+
+    /* Prépare les données pour Web3Forms */
+    var donneesFormulaire = new FormData(form);
+    var objetDonnees      = Object.fromEntries(donneesFormulaire);
+
+    /* Envoi vers l'API Web3Forms */
+    fetch('https://api.web3forms.com/submit', {
+      method:  'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept':       'application/json'
+      },
+      body: JSON.stringify(objetDonnees)
+    })
+    .then(function (reponse) {
+      return reponse.json().then(function (data) {
+        return { status: reponse.status, ok: reponse.ok, data: data };
+      });
+    })
+    .then(function (resultat) {
+      setBtnChargement(false);
+      if (resultat.ok && resultat.data.success) {
+        afficherSucces();
+      } else {
+        var messageErreur = (resultat.data && resultat.data.message)
+          ? resultat.data.message
+          : 'Une erreur est survenue (code ' + resultat.status + '). Veuillez réessayer.';
+        afficherErreur(messageErreur);
+      }
+    })
+    .catch(function (erreur) {
+      setBtnChargement(false);
+      afficherErreur(
+        'Impossible de contacter le serveur. Vérifiez votre connexion ou écrivez directement à publicusgroup2026@gmail.com.'
+      );
+      console.error('[Publicus Group] Erreur formulaire :', erreur);
+    });
+  });
+
+})(); /* Fin IIFE */
